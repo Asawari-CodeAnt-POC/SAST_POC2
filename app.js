@@ -64,7 +64,19 @@ app.get("/token", (req, res) => {
     const token = Math.random().toString(36).substring(2);
     res.send("Generated token: " + token);
 });
+// NEW: Server-Side Request Forgery (SSRF)
+const axios = require("axios");
 
+app.get("/fetch", async (req, res) => {
+    const url = req.query.url;
+
+    try {
+        const response = await axios.get(url); // Unsafe external request
+        res.send(response.data);
+    } catch (err) {
+        res.send(err.message);
+    }
+});
 app.listen(3000, () => {
     console.log("Vulnerable demo app running on port 3000");
 });
