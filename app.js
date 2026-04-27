@@ -19,7 +19,9 @@ app.get("/user", (req, res) => {
 
 // Existing critical RCE
 app.get("/exec", (req, res) => {
-    eval(req.query.code); // Critical Remote Code Execution
+    app.get("/exec", (req, res) => {
+    res.status(400).send("Unsupported operation");
+});
 });
 
 // NEW: Sensitive secret exposure
