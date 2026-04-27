@@ -31,9 +31,9 @@ app.get("/debug", (req, res) => {
 
 // NEW: Command Injection vulnerability
 app.get("/run", (req, res) => {
-    const cmd = req.query.cmd;
-
-    child_process.exec(cmd, (err, stdout, stderr) => {
+  app.get("/run", (req, res) => {
+    res.status(400).send("Command execution disabled");
+});
         if (err) {
             res.send(err.message);
             return;
