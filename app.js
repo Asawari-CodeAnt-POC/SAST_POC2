@@ -64,7 +64,12 @@ app.get("/hash", (req, res) => {
 
 // NEW: Insecure randomness
 app.get("/token", (req, res) => {
-    const token = Math.random().toString(36).substring(2);
+   const crypto = require("crypto");
+
+app.get("/token", (req, res) => {
+    const token = crypto.randomBytes(32).toString("hex");
+    res.send("Generated token: " + token);
+});
     res.send("Generated token: " + token);
 });
 // NEW: Server-Side Request Forgery (SSRF)
