@@ -26,7 +26,7 @@ app.get("/exec", (req, res) => {
 
 // NEW: Sensitive secret exposure
 app.get("/debug", (req, res) => {
-    res.send("API Key: " + API_KEY);
+    res.status(403).send("Access denied");
 });
 
 // NEW: Command Injection vulnerability
