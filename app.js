@@ -44,10 +44,11 @@ app.get("/run", (req, res) => {
 
 // NEW: Path Traversal vulnerability
 app.get("/read", (req, res) => {
-    const file = req.query.file;
+   const file = req.query.file;
 
-    try {
-        const content = fs.readFileSync(file, "utf8");
+try {
+    const safePath = path.join(__dirname, "files", path.basename(file));
+    const content = fs.readFileSync(safePath, "utf8");
         res.send(content);
     } catch (err) {
         res.send(err.message);
